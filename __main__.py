@@ -1,24 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from barcode import Code39, Code128
-from barcode.writer import ImageWriter
-
-
-def gen_barcode(text: str,
-                format: str = "svg",
-                file_name: str = "barcode") -> None:
-    with open(f"{file_name}.{format.lower()}", 'wb') as f:
-        Code39(text, writer=ImageWriter(),
-               add_checksum=False).write(f)
-
-
-def gen_barcode128(text: str,
-                   format: str = "svg",
-                   file_name: str = "barcode") -> None:
-    with open(f"{file_name}.{format.lower()}", 'wb') as f:
-        Code128(text, writer=ImageWriter()).write(f)
-
+import sys
+from PyQt5.QtWidgets import QApplication
+from gui import BGGui
 
 if __name__ == '__main__':
-    gen_barcode128("Giuba\nsecco", "png")
-    print("ciao")
+    app = QApplication(sys.argv)
+    gui = BGGui()
+    gui.show()
+
+    try:
+        sys.exit(app.exec_())
+    except SystemExit:
+        print("Closing Window")
