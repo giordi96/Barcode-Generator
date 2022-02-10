@@ -1,5 +1,3 @@
-import os
-from unicodedata import name
 from PyQt5 import uic
 from PyQt5.QtWidgets import QFileDialog, QWidget
 from barcode import Code128
@@ -15,7 +13,7 @@ class BGGui(QWidget):
 
     @property
     def GUI_RELATIVE_PATH(self) -> str:
-        return get_resource_path(r"gui/barcode_generator_gui.ui")
+        return get_resource_path("gui//barcode_generator_gui.ui")
 
     def __init__(self) -> None:
         super().__init__()
@@ -24,29 +22,32 @@ class BGGui(QWidget):
         self.button_salva.clicked.connect(self.generate_barcode)
 
     def generate_barcode(self) -> None:
-        options = QFileDialog.Options()
-        options |= QFileDialog.DontUseNativeDialog
-        file_name, filter = QFileDialog.getSaveFileName(self,
-                                                        "Save file",
-                                                        "",
-                                                        "PNG (*.png);;PDF (*.pdf)",
-                                                        options=options)
-        if file_name:
+        try:
+            options = QFileDialog.Options()
+            options |= QFileDialog.DontUseNativeDialog
+            file_name, filter = QFileDialog.getSaveFileName(self,
+                                                            "Save file",
+                                                            "",
+                                                            "PNG (*.png);;PDF (*.pdf)",
+                                                            options=options)
+            if file_name:
 
-            if filter.startswith("PNG"):
-                format = "PNG"
-                if not file_name.endswith(".png"):
-                    file_name = ".".join((file_name, "png"))
+                if filter.startswith("PNG"):
+                    format = "PNG"
+                    if not file_name.endswith(".png"):
+                        file_name = ".".join((file_name, "png"))
 
-            elif filter.startswith("PDF"):
-                format = "PDF"
-                if not file_name.endswith(".pdf"):
-                    file_name = ".".join((file_name, "pdf"))
+                elif filter.startswith("PDF"):
+                    format = "PDF"
+                    if not file_name.endswith(".pdf"):
+                        file_name = ".".join((file_name, "pdf"))
 
-            code = self.input_testo.text()
-            code = code.replace("\\n", "\n")
-            code = code.replace("\\t", "\t")
+                code = self.input_testo.text()
+                code = code.replace("\\n", "\n")
+                code = code.replace("\\t", "\t")
 
-            with open(f"{file_name}", 'wb') as file:
-                Code128(code=code,
-                        writer=ImageWriter(format=format)).write(file)
+                with open(f"{file_name}", 'wb') as file:
+                    Code128(code=code,
+                            writer=ImageWriter(format=format)).write(file)
+        except Exception as e:
+            self.input_testo.setText(f"Errore: {str(e)}")
