@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Barcode Generator</string>
   </property>
   <widget class="QPushButton" name="button_salva">
    <property name="geometry">
@@ -36,7 +36,10 @@
     </rect>
    </property>
    <property name="text">
-    <string>digita qui il testo da cui generare il codice a barre</string>
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>Digita qui il testo da cui generare il codice a barre</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_testo">

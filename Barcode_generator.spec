@@ -7,8 +7,8 @@ block_cipher = None
 a = Analysis(['__main__.py'],
              pathex=[],
              binaries=[],
-             datas=[('gui\\barcode_generator_gui.ui', '.\\gui'), ('venv\\socomecenv\\Lib\\site-packages\\barcode\\fonts\\DejaVuSansMono.ttf', '.\\venv\\socomecenv\\Lib\\site-packages\\barcode\\fonts')],
-             hiddenimports=['Pillow'],
+             datas=[('gui\\barcode_generator_gui.ui', '.\\gui'), ('res/*.png', 'res/'), ('res/*.ico', 'res/'), ('venv\\socomecenv\\Lib\\site-packages\\barcode\\fonts\\DejaVuSansMono.ttf', '.\\venv\\socomecenv\\Lib\\site-packages\\barcode\\fonts')],
+             hiddenimports=[],
              hookspath=[],
              hooksconfig={},
              runtime_hooks=[],
@@ -37,4 +37,4 @@ exe = EXE(pyz,
           disable_windowed_traceback=False,
           target_arch=None,
           codesign_identity=None,
-          entitlements_file=None )
+          entitlements_file=None , icon='res\\icon.ico')

@@ -1,9 +1,10 @@
 from PyQt5 import uic
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QFileDialog, QWidget
 from barcode import Code128
 from barcode.writer import ImageWriter
 
-from res import get_resource_path
+from path_manager import get_resource_path
 
 
 class BGGui(QWidget):
@@ -18,6 +19,9 @@ class BGGui(QWidget):
     def __init__(self) -> None:
         super().__init__()
         uic.loadUi(self.GUI_RELATIVE_PATH, self)
+
+        self.icon = QIcon(str(get_resource_path(r"res/icon.png")))
+        self.setWindowIcon(self.icon)
 
         self.button_salva.clicked.connect(self.generate_barcode)
 
